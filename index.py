@@ -1,5 +1,6 @@
 import sys
 import os
+import time
 
 """Sistema principal"""
 # Cores
@@ -19,7 +20,7 @@ Text_StrongEnd = "\033[0m"
 # Esqueleto do sistema
 class Terminal:
     def __init__(self):
-        self.cmd = f"<({BLUE}VAMGConsole/{PURPLE}Home{END})> "
+        self.cmd = f"<({BLUE}VAMGConsole{END}/{PURPLE}Home{END})> "
         
     def view(self):
         return input(self.cmd).lower()  # Corrigido: lower() é um método
@@ -39,17 +40,21 @@ class Terminal:
             print(f"{YELLOW}Sistema finalizado a força{END}")
     
     def help(self):
-        print(f"{CYAN}help{END} - Listar comandos disponiveis")
-        print(f"{CYAN}version{END} - Exibe as informações do software")    
-        print(f"{CYAN}clear{END} - limpa o terminal")
-        print(f"{CYAN}exit{END} - Finaliza o programa{END}")
+        print(f"{'-' * 50}")
+        print(f"| {CYAN}help{END} - Listar comandos disponiveis{' ' * 13}|")
+        print(f"| {CYAN}version{END} - Exibe as informações do software{' ' * 5}|")
+        print(f"| {CYAN}clear{END} - limpa o terminal{' ' * 23}|")
+        print(f"| {CYAN}exit{END} - Finaliza o programa{END}{' ' * 21}|")
+        print(f"| {CYAN}time{END} - Exibe o horario atual{END}{' ' * 19}|")
+        print(f"| {CYAN}list{END} - Lista os softwares disponiveis{END}{' ' * 10}|")
+        print(f"{'-' * 50}")
         print("")
         
     def version(self):
         # Variaveis
         titulo = f"|{' ' * 13}{CYAN} VAMG Console {END}{' ' * 21}|"
-        dev = f"|{YELLOW} Desenvolvedor: {CYAN}Victor Alex Moreira Gouveia {Colors.END}{' ' * 4}|"
-        version = f"|{YELLOW} Versão: {CYAN}V0.0.2 {Colors.END}{' ' * 32}|"
+        dev = f"|{YELLOW} Desenvolvedor: {CYAN}Victor Alex Moreira Gouveia {END}{' ' * 4}|"
+        version = f"|{YELLOW} Versão: {CYAN}V0.1.0 {END}{' ' * 32}|"
         data = f"|{YELLOW} Data de criação: {CYAN}19/03/2025 {END}{' ' * 19}|"
         
         print("-"*50)
@@ -61,6 +66,7 @@ class Terminal:
         print(dev)
         
         print("-"*50)
+        print("")
         
 try:
     # Aplicação de toda a lógica
@@ -74,6 +80,12 @@ try:
             call.clear()
         elif user_input == 'version':
             call.version()
+        
+        elif user_input == 'time':
+            print(time.strftime("%H:%M:%S"))
+        
+        elif user_input == 'list':
+            print(f"{RED}Sistema em construção{END}")
         
         elif user_input == 'exit':
             print("Fim de programa")
