@@ -12,6 +12,11 @@
 - Inicio do projeto **Data: 19/03/2025**
 - Criação do dockerfile
 - Não está fucionando
+
+<br>
+
+#### **V0.0.2**
+- Corrção de bug de funcionamento **Data: 20/03/2025**
 <hr>
 
 #### Sobre o desenvolvedor:
