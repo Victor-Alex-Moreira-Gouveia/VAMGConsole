@@ -1,6 +1,6 @@
 import time
-from TerminalCenter import Terminal, RED, YELLOW, END
-
+from TerminalCenter import Terminal
+from ColorSystem import FontColor as FC
 
 try:
     # Aplicação de toda a lógica
@@ -19,7 +19,7 @@ try:
             print(time.strftime("%H:%M:%S"))
         
         elif user_input == 'list':
-            print(f"{RED}Sistema em construção{END}")
+            print(f"{FC('Sistema em construção', 'normal', 'red')}")
         
         elif user_input == 'exit':
             print("Fim de programa")
@@ -27,7 +27,7 @@ try:
             break
         
         else:
-            print(f"{RED}Comando não encontrado digite {YELLOW}'help'{RED} para listar comandos{END}")
+            print(f"{FC('Comando não encontrado digite ', 'normal', 'red')}{FC('help', 'normal', 'yellow')}{FC(' para listar comandos', 'normal', 'red')}")
         
 except KeyboardInterrupt:
-    print(f"\n{YELLOW}Programa finalizado a força{END}")
+    print(f"\n{FC('Programa finalizado a força', 'normal', 'yellow')}")

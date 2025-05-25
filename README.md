@@ -27,6 +27,14 @@
 - Novo comando 'time' foi adicionado.
 - **Data: 21/03/2025**
 
+<br>
+
+#### **V0.2.0**
+- Correção de bugs.
+- Refatoração de código.
+- Adição de novos recursos internos.
+- **Data: 25/05/2025**
+
 <hr>
 
 #### Sobre o desenvolvedor:

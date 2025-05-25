@@ -18,6 +18,20 @@ class InvalidColorError(FontColorError):
         self.message = f"Opção de cor indisponível: '{color}'. Opções disponíveis: {available_options}"
         super().__init__(self.message)
 
+class InvalidBackgroundColorError(FontColorError):
+    """Exception raised when an invalid background color is provided."""
+    def __init__(self, bg_color, available_options):
+        self.bg_color = bg_color
+        self.available_options = available_options
+        self.message = f"Opção de cor de fundo indisponível: '{bg_color}'. Opções disponíveis: {available_options}"
+        super().__init__(self.message)
+
+class InvalidFontColorObjectError(FontColorError):
+    """Exception raised when an invalid FontColor object is provided."""
+    def __init__(self):
+        self.message = "O primeiro argumento deve ser uma instância da classe FontColor"
+        super().__init__(self.message)
+
 class FontColor:
     # Opções disponíveis
     FONT_TYPES = ['normal', 'bold', 'underline', 'italic', 'strikethrough', 'blink', 'hidden', 'reverse', 'dim']
@@ -123,6 +137,92 @@ class FontColor:
 # Variavel = FontColor("text", type_font, color_font)
 
 """Lógica do sitema de cor de fundo
-
-Backgroud = BC(variavel, Cor_fundo)
+Var = FontColor("text", type_font, color_font)
+BG = BackgroudColor(Var, Cor_fundo)
 """ 
+
+class BackgroundColor:
+    """
+    Classe para adicionar cor de fundo a um texto já formatado com FontColor.
+    Permite aplicar uma cor de fundo enquanto mantém a formatação do texto.
+    """
+    # Códigos ANSI para cores de fundo
+    COLORS = ['white', 'red', 'green', 'yellow', 'blue', 'magenta', 'cyan', 'gray']
+    COLORS_CODE = {
+        'white': '\033[40m',
+        'red': '\033[41m',
+        'green': '\033[42m',
+        'yellow': '\033[43m',
+        'blue': '\033[44m',
+        'magenta': '\033[45m',
+        'cyan': '\033[46m',
+        'gray': '\033[47m',
+    }
+    
+    # Constante para reset completo
+    RESET_ALL = '\033[0m'
+    
+    def __init__(self, font_color_obj, bg_color):
+        """
+        Inicializa um objeto BackgroundColor que aplica cor de fundo a um texto já formatado.
+
+        Args:
+            font_color_obj (FontColor): Objeto da classe FontColor contendo texto já formatado
+            bg_color (str): Cor de fundo a ser aplicada ('white', 'red', 'green', 'yellow', 'blue', 'magenta', 'cyan', 'gray')
+            
+        Raises:
+            InvalidFontColorObjectError: Se o primeiro argumento não for uma instância de FontColor
+            InvalidBackgroundColorError: Se a cor de fundo não for válida
+            TypeError: Se houver erro na conversão de tipos
+        """
+        try:
+            # Validar que font_color_obj é uma instância de FontColor
+            if not isinstance(font_color_obj, FontColor):
+                raise InvalidFontColorObjectError()
+                
+            self.font_color_obj = font_color_obj
+            self.bg_color = str(bg_color).lower()
+            
+            # Validar a cor de fundo
+            self._validate_bg_color()
+            
+            # Formatar o texto com a cor de fundo
+            self.formatted_text = self._format_text()
+            
+        except TypeError as e:
+            raise TypeError(f"Erro de tipo ao processar os parâmetros: {e}")
+    
+    def _validate_bg_color(self):
+        """Valida a cor de fundo fornecida."""
+        if self.bg_color not in self.COLORS:
+            raise InvalidBackgroundColorError(self.bg_color, self.COLORS)
+    
+    def _format_text(self):
+        """
+        Formata o texto combinando a cor de fundo com a formatação existente.
+        Aplica a cor de fundo antes da formatação de texto para garantir
+        que todas as propriedades sejam mantidas.
+        """
+        # Obtém o código ANSI para a cor de fundo
+        bg_code = self.COLORS_CODE[self.bg_color]
+        
+        # Acessa o texto formatado do objeto FontColor sem o reset
+        # (o FontColor.formatted_text não inclui o código de reset)
+        formatted_text = self.font_color_obj.formatted_text
+        
+        # Combina a cor de fundo com o texto formatado
+        # A ordem correta é: cor de fundo + formatação de texto
+        return f"{bg_code}{formatted_text}"
+    
+    def __str__(self):
+        """
+        Retorna o texto com cor de fundo quando o objeto é convertido para string.
+        Aplica o reset apenas no final para garantir que a formatação não
+        afete textos subsequentes.
+        """
+        return f"{self.formatted_text}{self.RESET_ALL}"
+
+# Exemplos de uso:
+# texto = FontColor("Exemplo", "bold", "yellow")
+# texto_com_fundo = BackgroundColor(texto, "blue")
+# print(texto_com_fundo)
