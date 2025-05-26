@@ -221,8 +221,3 @@ class BackgroundColor:
         afete textos subsequentes.
         """
         return f"{self.formatted_text}{self.RESET_ALL}"
-
-# Exemplos de uso:
-# texto = FontColor("Exemplo", "bold", "yellow")
-# texto_com_fundo = BackgroundColor(texto, "blue")
-# print(texto_com_fundo)
