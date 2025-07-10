@@ -1,0 +1,7 @@
+FROM python:3.13
+
+WORKDIR /home
+COPY ../tests .
+COPY ../ColorSystem.py .
+COPY ../TerminnalCenter.py .
+CMD [ "python3", "-m", "discover", "tests"]
