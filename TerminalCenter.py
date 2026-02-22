@@ -5,11 +5,15 @@ from ColorSystem import FontColor as FC
 """Sistema principal"""
 # Esqueleto do sistema
 class Terminal:
-    def __init__(self):
-        self.cmd = f"{FC('<(VAMGConsole', 'normal', 'blue')}/{FC('Home', 'normal', 'purple')}{FC(')> ', 'normal', 'blue')}"
+    def __init__(self, cmd):
+        self.cmd = cmd
+        self.default = f"{FC('<(VAMGConsole', 'normal', 'blue')}/{FC('Home', 'normal', 'purple')}{FC(')> ', 'normal', 'blue')}"
         
     def view(self):
-        return input(self.cmd).lower()  # Corrigido: lower() é um método
+        if self.cmd != None:
+            return input(self.cmd).lower()
+        
+        return input(self.default).lower()
 
     def clear(self):
         AtualOS = sys.platform
@@ -54,4 +58,3 @@ class Terminal:
         
         print("-"*50)
         print("")
-        
