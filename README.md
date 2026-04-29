@@ -4,6 +4,8 @@
 
 <strong>Descrição: </strong> Um software de linha de comando com multiplas funcionalidades, escrito inteiramente em python.
 
+**Requisitos:** Python 3.10 ou superior (testado até 3.14).
+
 
 <hr>
 
