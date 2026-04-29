@@ -1,6 +1,6 @@
 import os
 import sys
-from ColorSystem import FontColor as FC
+from core.ColorSystem import FontColor as FC
 
 """Sistema principal"""
 # Esqueleto do sistema

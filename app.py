@@ -1,6 +1,6 @@
 import time
-from TerminalCenter import Terminal
-from ColorSystem import FontColor as FC
+from core.TerminalCenter import Terminal
+from core.ColorSystem import FontColor as FC
 
 try:
     # Aplicação de toda a lógica
